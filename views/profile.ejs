@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+    </head>
+    <body>
+        <% if(user.id==user_Info.id) { %>
+            <img src="<%= user.avatar %>" alt="<%= user.name %>" width="100">
+            <h1>My profile </h1>
+        <p><%= user_Info.name %></p>
+        <p><%= user_Info.email %></p>
+        <h4>Fill this below form to the Credentials</h4>
+        <form id="profile-change" method="POST" action="/change_profile/<%=user_Info._id %>" enctype="multipart/form-data">
+        <span>Enter the name</span>
+        <input type="text" name="shr1" value="name">
+        <span>Enter E-mail</span>
+        <input type="email" name="shr2" value="email">
+        <input type="file" name="avatar" placeholder="profilePicture">
+        <button value="submit">Update</button>
+        </form>
+        
+        <%} else{ %>
+        <h1>My profile </h1>
+        <p><%= user_Info.name %></p>
+        <p><%= user_Info.email %></p>
+        <% } %>
+    </body>
+</html>

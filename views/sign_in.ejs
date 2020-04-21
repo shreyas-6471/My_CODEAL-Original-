@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>
+            <%= title %>
+        
+        </title>
+        <body>
+            <h1>
+                Please enter the credentials
+            </h1>
+            <form action="/create-session" method="POST">
+            <span>E-mail</span>
+            <input type="email" name="email">
+            <span>Password</span>
+            <input type="password" name="password">
+            <button value="Submit">Submit</button>
+            </form>
+            <p>
+                <a href="/users/auth/google">Sign in using Google</a>
+            </p>
+        </body>
+    </head>
+</html>

@@ -1,0 +1,20 @@
+<html>
+    <title>
+        <%= title %>
+    </title>
+    <body>
+        <h1>Fill up the credentials to Sign Up and register yourself</h1>
+        <form action="/display" method="POST">
+            <span>Name:</span>
+            <input type="text" name="name">
+            <span>E-mail:</span>
+            <input type="email" name="email">
+            <span>Password:</span>
+            <input type="password" name="password">
+            <button value="submit">Submit</button>
+        </form>
+        <p>
+            <a href="/users/auth/google">Sign Up Using Google</a>
+        </p>
+    </body>
+</html>

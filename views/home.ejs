@@ -1,0 +1,77 @@
+
+       <link rel="stylesheet" href="/css/user_profile.css">
+       <link rel="stylesheet" href="/css/home.css">
+        <h1> This is codial </h1>
+        <p>Whenever server renders this page it goes to layout.ejs and everything is filled over there, We've not include this page explicitily.</p>
+
+   <div>
+         <% if(locals .user) { %>
+        <section id="user_posts">
+            <h3>Post to your Feed</h3>
+            <form id="shr" method="POST" action="/post_submit">
+             <textarea name="content" cols="30" rows="3"></textarea>
+             <button value="submit">Submit</button>
+            </form>
+        </section>
+        <% } %>
+
+        
+        <% if(locals .user) { %>
+        <section id="display-posts-comments">
+            <div>
+            <% for(let i of post_List) { %>
+                            <p> <%= i.content %> </p>
+                            <p> <%= i.user %></p>
+                    <small><a href="/toggle?id=<%=i._id%>&type=Post"><%= i.likes.length %> Likes</a></small>
+                            <form id="delete-post" action="/destroy" method="POST">
+                                <input type="hidden" name="shr" value="<%= i.id %>">
+                                <button value="delete">Delete post</button>
+                            </form>
+                            
+                            <% for(let j of comment_List) { %>
+                                <% if( i.id  ==  j.post ) { %>
+                                <p> <%= j.content %> </p>
+                                <small><a href="/toggle?id=<%=j._id%>&type=Comment"><%= j.likes.length %> Likes</a></small>
+                                <form id="delete-comment" method="POST" action="/delete_comment">
+                                    <input type="hidden" name="shi" value="<%= j.id %>">
+                                    <button value="delete-comment">Delete Comment</button>
+                                </form>
+                                <% } %>
+                                <% } %>
+                            <section id="comments-sec">
+                                <form action='/comment_submit' method="POST">
+                                    <textarea name="content" cols="30" rows="2" placeholder="Type your comment here">
+                                    </textarea>
+                                    <input type="hidden" name="post" value="<%= i._id %>" >
+                                    <button value="submit">Submit</button>
+                                </form>
+                            </section>
+                   <% } %> 
+                
+                </div>
+                </section>
+<section>
+    <h4>Your Friends</h4>
+    <div id="shille">
+    <% for(let s of user_List) { %>
+        <div id="shille-1">
+        <form id="show_profile" method="POST" action="/profile">
+        <img src="<%= user.avatar %>">
+        <input type="hidden" name="ana" value="<%=s.id %>">
+        <button value="show_profile"><%= s.name %></button>
+        </form>
+    </div>
+    <%} %>
+    </div>
+</section>
+<%- include('_chatter'); %>
+  <% } %>
+</div>
+<script src="/js/home_post.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="/js/chat_engine.js"></script>
+<% if(locals.user) { %>
+<script>
+    new ChatEngine('chatter','<%= locals.user.email %>');
+</script>
+<% } %>
